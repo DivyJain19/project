@@ -22,7 +22,6 @@ export default function PhoneScreen() {
   }, []);
 
   const handleBackPress = () => {
-    setCurrentStep('welcome');
     router.back();
   };
 

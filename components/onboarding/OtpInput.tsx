@@ -54,19 +54,19 @@ const OtpInput = ({
       // Handle paste event
       const pastedOtp = text.split('').slice(0, length);
       const newOtp = [...otp];
-      
+
       pastedOtp.forEach((digit, i) => {
         if (index + i < length) {
           newOtp[index + i] = digit;
         }
       });
-      
+
       setOtp(newOtp);
-      
+
       // Focus the last input or submit if complete
       const focusIndex = Math.min(index + pastedOtp.length, length - 1);
       inputRefs.current[focusIndex]?.focus();
-      
+
       if (index + pastedOtp.length >= length) {
         Keyboard.dismiss();
         onSubmit(newOtp.join(''));
@@ -76,7 +76,7 @@ const OtpInput = ({
       const newOtp = [...otp];
       newOtp[index] = text;
       setOtp(newOtp);
-      
+
       // Move to next input if a digit was entered
       if (text && index < length - 1) {
         inputRefs.current[index + 1]?.focus();
@@ -84,11 +84,11 @@ const OtpInput = ({
         // If backspace with empty field, move to previous
         inputRefs.current[index - 1]?.focus();
       }
-      
+
       // Check if OTP is complete
       if (text && index === length - 1) {
         Keyboard.dismiss();
-        
+
         const isComplete = newOtp.every((digit) => digit);
         if (isComplete) {
           onSubmit(newOtp.join(''));
@@ -108,19 +108,8 @@ const OtpInput = ({
     }
   };
 
-  const formatPhoneNumber = (number: string) => {
-    // Simple formatting - show last 4 digits with asterisks
-    if (!number) return '';
-    const lastFour = number.slice(-4);
-    return `***-***-${lastFour}`;
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.infoText}>
-        Enter the OTP sent to {formatPhoneNumber(phoneNumber)}
-      </Text>
-      
       <View style={styles.inputsContainer}>
         {Array(length)
           .fill(0)
@@ -146,27 +135,28 @@ const OtpInput = ({
             />
           ))}
       </View>
-      
+
       <View style={styles.timerContainer}>
         <Text style={styles.timerText}>
           Didn't receive OTP? Retry in{' '}
           <Text style={styles.countdownText}>{countdown}s</Text>
         </Text>
-        
+
         {countdown === 0 && (
           <Text style={styles.resendLink} onPress={handleResendOtp}>
             Resend OTP
           </Text>
         )}
       </View>
+
       <View style={styles.buttonContainer}>
-      <ButtonV2
-        title="Verify"
-        size="medium"
-        loading={loading}
-        disabled={!otp.every((digit) => digit)}
-        onPress={() => onSubmit(otp.join(''))}
-      />
+        <ButtonV2
+          title="Verify"
+          size="medium"
+          loading={loading}
+          disabled={!otp.every((digit) => digit)}
+          onPress={() => onSubmit(otp.join(''))}
+        />
       </View>
     </View>
   );
@@ -175,12 +165,6 @@ const OtpInput = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-  },
-  infoText: {
-    ...FONTS.body,
-    color: COLORS.textSecondary,
-    marginBottom: SIZES.large,
-    textAlign: 'center',
   },
   inputsContainer: {
     flexDirection: 'row',

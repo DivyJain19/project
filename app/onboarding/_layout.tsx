@@ -18,6 +18,7 @@ export default function OnboardingLayout() {
       <Stack.Screen name="otp" />
       <Stack.Screen name="location" />
       <Stack.Screen name="address" />
+      <Stack.Screen name="address-map" />
       <Stack.Screen name="user-info" />
       <Stack.Screen name="samples" />
     </Stack>

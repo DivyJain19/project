@@ -9,6 +9,7 @@ interface HeaderProps {
   showBackButton?: boolean;
   onBackPress?: () => void;
   rightComponent?: React.ReactNode;
+  backgroundColor?: string;
 }
 
 const Header = ({
@@ -16,6 +17,7 @@ const Header = ({
   showBackButton = true,
   onBackPress,
   rightComponent,
+  backgroundColor = COLORS.background,
 }: HeaderProps) => {
   const router = useRouter();
 
@@ -28,7 +30,7 @@ const Header = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor}]}>
       <View style={styles.leftContainer}>
         {showBackButton && (
           <TouchableOpacity

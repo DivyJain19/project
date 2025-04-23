@@ -106,11 +106,10 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between', // This is the key!
+    justifyContent: 'space-between',
   },
   bottomPart: {
-    // No need for marginTop: 'auto' anymore
-    paddingBottom: SIZES.large * 12, // Add some padding at the very bottom
+    paddingBottom: SIZES.large * 12, 
     paddingHorizontal: SIZES.medium,
   },
   inputContainer: {
@@ -118,8 +117,6 @@ const styles = StyleSheet.create({
     paddingBottom: SIZES.large,
     borderBottomWidth: 2,
     borderBottomColor: COLORS.veryLightGray,
-    paddingHorizontal: SIZES.padding,
-    paddingTop: SIZES.padding, // Add some padding at the top if needed
   },
   countryCodeContainer: {
     flexDirection: 'row',

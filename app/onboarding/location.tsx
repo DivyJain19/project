@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import Screen from '@/components/common/Screen';
 import Header from '@/components/common/Header';
-import ProgressBar from '@/components/common/ProgressBar';
 import LocationRequest from '@/components/onboarding/LocationRequest';
 import { COLORS, SIZES } from '@/constants/theme';
 import { useLocationStore } from '@/store/locationStore';
@@ -19,6 +18,7 @@ export default function LocationScreen() {
   // Set current step on mount
   React.useEffect(() => {
     setCurrentStep('location');
+    handleLocationRequest();
   }, []);
   
   const handleLocationRequest = async () => {
@@ -32,10 +32,12 @@ export default function LocationScreen() {
       
       if (granted) {
         // If permission granted, go to address screen for additional details
-        router.push('/onboarding/address');
+        // router.push('/onboarding/address');
+        router.push('/onboarding/address-map');
       } else {
         // If permission denied, skip to user info
-        router.push('/onboarding/user-info');
+        // router.push('/onboarding/user-info');
+        router.push('/onboarding/address');
       }
     } catch (error) {
       console.error('Error requesting location:', error);
@@ -51,20 +53,11 @@ export default function LocationScreen() {
     completeStep('location');
     
     // Navigate to user info directly
-    router.push('/onboarding/user-info');
+    router.push('/onboarding/address');
   };
   
   return (
     <Screen withPadding style={styles.container}>
-      <Header 
-        title="Location" 
-        showBackButton 
-      />
-      
-      <View style={styles.progressContainer}>
-        <ProgressBar progress={0.42} />
-      </View>
-      
       <View style={styles.content}>
         <LocationRequest 
           onLocationRequest={handleLocationRequest}
@@ -80,9 +73,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
-  },
-  progressContainer: {
-    paddingVertical: SIZES.medium,
   },
   content: {
     flex: 1,

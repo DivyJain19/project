@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, Image, Platform } from 'react-native';
-import Button from '@/components/common/Button';
+import ButtonV2 from '@/components/common/ButtonV2';
 import { COLORS, FONTS, SIZES } from '@/constants/theme';
 
 interface LocationRequestProps {
@@ -16,6 +16,14 @@ const LocationRequest = ({
 }: LocationRequestProps) => {
   return (
     <View style={styles.container}>
+      
+      
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>Where should we deliver your essentials?</Text>
+        <Text style={styles.description}>
+          We need your location to show available products
+        </Text>
+      </View>
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: 'https://images.pexels.com/photos/1051077/pexels-photo-1051077.jpeg' }}
@@ -23,43 +31,12 @@ const LocationRequest = ({
           resizeMode="cover"
         />
       </View>
-      
-      <View style={styles.contentContainer}>
-        <Text style={styles.title}>Where should we deliver your essentials?</Text>
-        <Text style={styles.description}>
-          We need your location to show available products and delivery options in your area.
-        </Text>
-        
-        <View style={styles.infoBox}>
-          <Text style={styles.infoTitle}>
-            Allow "Weather" to access your location while you are using the app?
-          </Text>
-          <Text style={styles.infoDescription}>
-            App explanation for 'While Use App': "Your location is used to show local weather."
-          </Text>
-        </View>
-      </View>
-      
       <View style={styles.buttonContainer}>
-        <Button
-          title="Allow While Using App"
-          size="large"
-          onPress={onLocationRequest}
+        <ButtonV2
+          title="Continue"
+          size="medium"
           loading={loading}
-        />
-        <Button
-          title="Allow Once"
-          variant="outline"
-          size="large"
           onPress={onLocationRequest}
-          style={styles.secondaryButton}
-        />
-        <Button
-          title="Don't Allow"
-          variant="text"
-          size="large"
-          onPress={onSkip}
-          style={styles.textButton}
         />
       </View>
       
@@ -75,9 +52,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imageContainer: {
-    height: SIZES.height * 0.25,
+    height: SIZES.height * 0.55,
     width: '100%',
-    marginBottom: SIZES.large,
+    marginBottom: SIZES.xxlarge,
     borderRadius: SIZES.base,
     overflow: 'hidden',
   },
@@ -89,9 +66,9 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.xlarge,
   },
   title: {
-    ...FONTS.h2,
+    ...FONTS.h1,
     color: COLORS.text,
-    marginBottom: SIZES.medium,
+    marginBottom: SIZES.small,
   },
   description: {
     ...FONTS.body,
@@ -117,7 +94,6 @@ const styles = StyleSheet.create({
     }),
   },
   infoTitle: {
-    ...FONTS.medium,
     color: COLORS.text,
     marginBottom: SIZES.base,
   },
@@ -126,6 +102,7 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
   },
   buttonContainer: {
+    alignItems: 'center',
     marginBottom: SIZES.xlarge,
   },
   secondaryButton: {
@@ -136,7 +113,7 @@ const styles = StyleSheet.create({
   },
   manualText: {
     ...FONTS.body,
-    color: COLORS.primary,
+    color: COLORS.black,
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
