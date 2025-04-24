@@ -38,7 +38,7 @@ const Header = ({
             onPress={handleBackPress}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
-            <ArrowLeft color={COLORS.text} size={24} />
+            <ArrowLeft color={COLORS.white} size={24} />
           </TouchableOpacity>
         )}
         <Text style={styles.title} numberOfLines={1}>
@@ -57,8 +57,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SIZES.medium,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.veryLightGray,
   },
   leftContainer: {
     flexDirection: 'row',
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...FONTS.h3,
-    color: COLORS.text,
+    color: COLORS.white,
     flex: 1,
   },
   rightContainer: {

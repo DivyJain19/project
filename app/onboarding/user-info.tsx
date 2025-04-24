@@ -32,7 +32,7 @@ export default function UserInfoScreen() {
       completeStep('userInfo');
       
       // Navigate to samples selection
-      router.push('/onboarding/samples');
+      router.push('/onboarding/shopping-preferences');
     } catch (error) {
       console.error('Error saving user info:', error);
       // Handle error

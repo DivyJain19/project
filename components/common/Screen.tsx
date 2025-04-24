@@ -31,7 +31,7 @@ const Screen = ({
   statusBarStyle = 'dark-content',
 }: ScreenProps) => {
   const Container = scrollable ? ScrollView : View;
-  
+
   const containerProps = scrollable
     ? {
         showsVerticalScrollIndicator: false,
@@ -51,22 +51,29 @@ const Screen = ({
       };
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor }]}>
-      <StatusBar backgroundColor={statusBarColor} barStyle={statusBarStyle} />
-      <KeyboardAvoidingView
-        style={styles.keyboardAvoid}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
-      >
-        <Container {...containerProps}>{children}</Container>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={[styles.topSafeArea, { backgroundColor }]} />
+      <SafeAreaView style={styles.bottomSafeArea}>
+        <StatusBar backgroundColor={statusBarColor} />
+        <KeyboardAvoidingView
+          style={styles.keyboardAvoid}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+        >
+          <Container {...containerProps}>{children}</Container>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
+  topSafeArea: {
+    flex: 0,
+  },
+  bottomSafeArea: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   keyboardAvoid: {
     flex: 1,

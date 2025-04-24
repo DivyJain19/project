@@ -33,6 +33,7 @@ export const COLORS = {
   
   // Neutrals
   black: '#1E293B',
+  lightBlack: '#222222',
   darkGray: '#334155',
   mediumGray: '#64748B',
   lightGray: '#94A3B8',
@@ -42,6 +43,7 @@ export const COLORS = {
   // Background
   background: '#F5F3E9',
   card: '#FFFFFF',
+  header: '#4E342E',
   
   // Text
   text: '#1E293B',
@@ -52,6 +54,7 @@ export const COLORS = {
 export const SIZES = {
   // Global sizes
   base: 8,
+  xsmall: 8,
   small: 12,
   font: 14,
   medium: 16,
@@ -118,6 +121,11 @@ export const FONTS = {
     fontFamily: 'Georgia',
     fontSize: SIZES.large,
     lineHeight: SIZES.large * 1.2,
+  },
+  h4: {
+    fontFamily: 'Georgia',
+    fontSize: SIZES.medium,
+    lineHeight: SIZES.large,
   },
   body: {
     fontFamily: 'Georgia',

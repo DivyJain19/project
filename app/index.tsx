@@ -5,7 +5,7 @@ import { useFonts } from '@/hooks/useFonts';
 import { useUserStore } from '@/store/userStore';
 import { useOnboardingStore } from '@/store/onboardingStore';
 import { ActivityIndicator } from 'react-native';
-import { COLORS } from '@/constants/theme';
+import { COLORS, FONTS } from '@/constants/theme';
 
 export default function Index() {
   const router = useRouter();
@@ -42,7 +42,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Text style={styles.logo}>GoodLife</Text>
+        <Text style={styles.logo}>FirstClub</Text>
         <Text style={styles.tagline}>Essential Goods Delivered</Text>
       </View>
     </View>
@@ -66,8 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    fontFamily: 'Inter-Bold',
-    fontSize: 40,
+    ...FONTS.h2,
     color: COLORS.primary,
     marginBottom: 8,
   },

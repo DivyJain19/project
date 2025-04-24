@@ -5,12 +5,21 @@ import { useUserStore } from '@/store/userStore';
 import { useOnboardingStore } from '@/store/onboardingStore';
 import { useRouter } from 'expo-router';
 import { LogOut, User, MapPin, ShoppingBag, Heart, Bell, Settings } from 'lucide-react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProfileScreen() {
   const router = useRouter();
   const { fullName, phoneNumber, logout } = useUserStore();
   const { resetOnboarding } = useOnboardingStore();
 
+  const clearStorage = async () => {
+    try {
+      await AsyncStorage.clear();
+      console.log('AsyncStorage cleared!');
+    } catch (error) {
+      console.error('Error clearing AsyncStorage:', error);
+    }
+  };
   const handleLogout = () => {
     Alert.alert(
       "Log Out",
@@ -25,6 +34,7 @@ export default function ProfileScreen() {
           onPress: () => {
             logout();
             resetOnboarding();
+            clearStorage();
             router.replace('/onboarding/welcome');
           },
           style: "destructive"

@@ -19,6 +19,9 @@ export default function OnboardingLayout() {
       <Stack.Screen name="location" />
       <Stack.Screen name="address" />
       <Stack.Screen name="address-map" />
+      <Stack.Screen name="shopping-preferences" />
+      <Stack.Screen name="dietary-preferences" />
+      <Stack.Screen name="allergies" />
       <Stack.Screen name="user-info" />
       <Stack.Screen name="samples" />
     </Stack>

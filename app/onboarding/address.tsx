@@ -29,7 +29,7 @@ export default function AddressScreen() {
       addAddress(address);
       
       // Navigate to user info
-      router.push('/onboarding/user-info');
+      router.push('/onboarding/shopping-preferences');
     } catch (error) {
       console.error('Error saving address:', error);
       // Handle error
@@ -39,16 +39,12 @@ export default function AddressScreen() {
   };
   
   return (
-    <Screen scrollable withPadding style={styles.container}>
+    <Screen scrollable withPadding={false} style={styles.container} backgroundColor={COLORS.header}>
       <Header 
         title="Location Details" 
         showBackButton 
+        backgroundColor={COLORS.header}
       />
-      
-      <View style={styles.progressContainer}>
-        <ProgressBar progress={0.42} />
-      </View>
-      
       <View style={styles.content}>
         <AddressForm 
           onSubmit={handleSubmit}
@@ -69,5 +65,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    padding: 16
+
   },
 });

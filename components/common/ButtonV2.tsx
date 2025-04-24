@@ -11,7 +11,7 @@ import { COLORS, FONTS, SIZES, SHADOWS } from '@/constants/theme';
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
   variant?: 'primary' | 'secondary' | 'outline' | 'text';
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'smallMedium';
   loading?: boolean;
   disabled?: boolean;
 }
@@ -53,7 +53,7 @@ const ButtonV2 = ({
 
 const getButtonStyles = (
   variant: 'primary' | 'secondary' | 'outline' | 'text',
-  size: 'small' | 'medium' | 'large',
+  size: 'small' | 'medium' | 'large' | 'smallMedium',
   disabled: boolean
 ) => {
   // Base styles
@@ -69,6 +69,11 @@ const getButtonStyles = (
       paddingVertical: SIZES.base,
       paddingHorizontal: SIZES.medium,
       minWidth: SIZES.width * 0.25,
+    },
+    smallMedium: {
+      paddingVertical: SIZES.base * 2,
+      paddingHorizontal: SIZES.large,
+      minWidth: SIZES.width * 0.4,
     },
     medium: {
       paddingVertical: SIZES.medium,
@@ -111,7 +116,7 @@ const getButtonStyles = (
 
 const getTextStyles = (
   variant: 'primary' | 'secondary' | 'outline' | 'text',
-  size: 'small' | 'medium' | 'large'
+  size: 'small' | 'medium' | 'large' | 'smallMedium'
 ) => {
   // Base text styles
   const baseTextStyle = {
@@ -141,10 +146,11 @@ const getTextStyles = (
       color: COLORS.white,
     },
     outline: {
-      color: COLORS.primary,
+      color: COLORS.black,
     },
     text: {
-      color: COLORS.primary,
+      color: COLORS.black,
+      textDecorationLine: 'underline',
     },
   };
 

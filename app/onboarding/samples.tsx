@@ -1,79 +1,86 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  ImageBackground,
+  Dimensions,
+} from 'react-native';
 import { useRouter } from 'expo-router';
-import Screen from '@/components/common/Screen';
-import Header from '@/components/common/Header';
-import ProgressBar from '@/components/common/ProgressBar';
-import SampleSelector from '@/components/onboarding/SampleSelector';
-import { COLORS, SIZES } from '@/constants/theme';
+import SampleCarousel from '@/components/onboarding/SampleCarousel';
+import { SIZES } from '@/constants/theme';
 import { useUserStore } from '@/store/userStore';
 import { useOnboardingStore } from '@/store/onboardingStore';
-
+import { OnboardingHeader } from '@/components/common/OnboardingHeader';
+import ButtonV2 from '@/components/common/ButtonV2';
 export default function SamplesScreen() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  
+
   const { setFirstTime } = useUserStore();
-  const { setCurrentStep, completeStep, completeOnboarding } = useOnboardingStore();
-  
-  // Set current step on mount
+  const { setCurrentStep, completeStep, completeOnboarding } =
+    useOnboardingStore();
+  const { width, height } = Dimensions.get('window');
+
   React.useEffect(() => {
     setCurrentStep('samples');
   }, []);
-  
+
   const handleComplete = async () => {
     setLoading(true);
-    
+
     try {
-      // Mark samples step as completed
       completeStep('samples');
-      
-      // Mark onboarding as complete
       completeOnboarding();
-      
-      // Mark user as not first-time
       setFirstTime(false);
-      
-      // Navigate to home tabs
       router.push('/(tabs)');
     } catch (error) {
       console.error('Error completing onboarding:', error);
-      // Handle error
     } finally {
       setLoading(false);
     }
   };
-  
+
   return (
-    <Screen withPadding style={styles.container}>
-      <Header 
-        title="Free Samples" 
-        showBackButton 
-      />
-      
-      <View style={styles.progressContainer}>
-        <ProgressBar progress={0.85} />
-      </View>
-      
-      <View style={styles.content}>
-        <SampleSelector 
-          onComplete={handleComplete}
-          loading={loading}
+    <ImageBackground
+      source={require('@/assets/images/farm-bg.jpg')}
+      style={styles.image}
+      resizeMode="cover" // or "contain", "stretch", etc.
+    >
+      <SafeAreaView style={styles.container}>
+        <OnboardingHeader
+          title="The cleanest pantry you'll ever build."
+          showSkip={true}
+          onSkip={handleComplete}
         />
-      </View>
-    </Screen>
+        <View style={styles.content}>
+          <SampleCarousel />
+        </View>
+        <View style={styles.pad}>
+          <ButtonV2
+            title="Next"
+            size="medium"
+            onPress={handleComplete}
+          ></ButtonV2>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  progressContainer: {
-    paddingVertical: SIZES.medium,
   },
   content: {
-    flex: 1,
+    paddingTop: SIZES.xlarge,
+    // flex: 1,
+  },
+  pad: {
+    // paddingHorizontal: 100,
+    marginHorizontal: 100,
   },
 });

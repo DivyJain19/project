@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import { COLORS, FONTS, SIZES } from '@/constants/theme';
 import { Home, Briefcase, Users, Tag } from 'lucide-react-native';
 import { AddressDetails } from '@/store/locationStore';
+import ButtonV2 from '../common/ButtonV2';
 
 interface AddressFormProps {
   onSubmit: (address: AddressDetails) => void;
@@ -19,15 +26,21 @@ const AddressForm = ({
   initialValues = {},
   loading = false,
 }: AddressFormProps) => {
-  const [addressLine1, setAddressLine1] = useState(initialValues.addressLine1 || '');
-  const [addressLine2, setAddressLine2] = useState(initialValues.addressLine2 || '');
+  const [addressLine1, setAddressLine1] = useState(
+    initialValues.addressLine1 || ''
+  );
+  const [addressLine2, setAddressLine2] = useState(
+    initialValues.addressLine2 || ''
+  );
   const [landmark, setLandmark] = useState(initialValues.landmark || '');
   const [city, setCity] = useState(initialValues.city || '');
   const [state, setState] = useState(initialValues.state || '');
   const [pincode, setPincode] = useState(initialValues.pincode || '');
   const [tag, setTag] = useState<AddressTag>(initialValues.tag || 'Home');
-  
-  const [errors, setErrors] = useState<Partial<Record<keyof AddressDetails, string>>>({});
+
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof AddressDetails, string>>
+  >({});
 
   const validateForm = () => {
     const newErrors: Partial<Record<keyof AddressDetails, string>> = {};
@@ -80,91 +93,95 @@ const AddressForm = ({
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
-      <Input
-        label="Address line 1*"
-        placeholder="House/Flat No., Building Name"
-        value={addressLine1}
-        onChangeText={setAddressLine1}
-        error={errors.addressLine1}
-      />
-      
-      <Input
-        label="Address line 2"
-        placeholder="Street, Area, Locality"
-        value={addressLine2}
-        onChangeText={setAddressLine2}
-      />
-      
-      <Input
-        label="Landmark"
-        placeholder="Nearby landmark (optional)"
-        value={landmark}
-        onChangeText={setLandmark}
-      />
-      
-      <Input
-        label="City*"
-        placeholder="City"
-        value={city}
-        onChangeText={setCity}
-        error={errors.city}
-      />
-      
-      <Input
-        label="State*"
-        placeholder="State"
-        value={state}
-        onChangeText={setState}
-        error={errors.state}
-      />
-      
-      <Input
-        label="Pincode*"
-        placeholder="Enter Pincode"
-        value={pincode}
-        onChangeText={setPincode}
-        keyboardType="number-pad"
-        maxLength={6}
-        error={errors.pincode}
-      />
-      
+      <View style={styles.inputContainer}>
+        <Text style={[styles.label, errors.addressLine1 && styles.errorText]}>Address line 1*</Text>
+        <Input
+          placeholder="Search Address"
+          value={addressLine1}
+          onChangeText={setAddressLine1}
+          containerStyle={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Address line 2</Text>
+        <Input
+          placeholder="Street, Area, Locality"
+          value={addressLine2}
+          onChangeText={setAddressLine2}
+          containerStyle={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Landmark</Text>
+        <Input
+          placeholder="Nearby landmark (optional)"
+          value={landmark}
+          onChangeText={setLandmark}
+          containerStyle={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={[styles.label, errors.city && styles.errorText]}>City*</Text>
+        <Input
+          placeholder="City"
+          value={city}
+          onChangeText={setCity}
+          containerStyle={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={[styles.label, errors.state && styles.errorText]}>State*</Text>
+        <Input
+          placeholder="State"
+          value={state}
+          onChangeText={setState}
+          containerStyle={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={[styles.label, errors.pincode && styles.errorText]}>Pincode*</Text>
+        <Input
+          placeholder="Enter Pincode"
+          value={pincode}
+          onChangeText={setPincode}
+          keyboardType="number-pad"
+          maxLength={6}
+          containerStyle={styles.input}
+        />
+      </View>
       <View style={styles.tagContainer}>
-        <Text style={styles.tagLabel}>Address Tag*</Text>
-        
+        <Text style={styles.label}>Address Tag*</Text>
+
         <View style={styles.tagOptions}>
           <TagOption
             label="Home"
-            icon={<Home size={18} color={tag === 'Home' ? COLORS.primary : COLORS.mediumGray} />}
             selected={tag === 'Home'}
             onPress={() => setTag('Home')}
           />
-          
+
           <TagOption
             label="Office"
-            icon={<Briefcase size={18} color={tag === 'Office' ? COLORS.primary : COLORS.mediumGray} />}
             selected={tag === 'Office'}
             onPress={() => setTag('Office')}
           />
-          
+
           <TagOption
             label="Friends"
-            icon={<Users size={18} color={tag === 'Friends' ? COLORS.primary : COLORS.mediumGray} />}
             selected={tag === 'Friends'}
             onPress={() => setTag('Friends')}
           />
-          
+
           <TagOption
             label="Others"
-            icon={<Tag size={18} color={tag === 'Others' ? COLORS.primary : COLORS.mediumGray} />}
             selected={tag === 'Others'}
             onPress={() => setTag('Others')}
           />
         </View>
       </View>
-      
+
       <Text style={styles.requiredNote}>*Compulsory fields</Text>
-      
-      <Button
+
+      <ButtonV2
         title="Next"
         size="large"
         loading={loading}
@@ -177,26 +194,16 @@ const AddressForm = ({
 
 interface TagOptionProps {
   label: string;
-  icon: React.ReactNode;
   selected: boolean;
   onPress: () => void;
 }
 
-const TagOption = ({ label, icon, selected, onPress }: TagOptionProps) => (
+const TagOption = ({ label, selected, onPress }: TagOptionProps) => (
   <TouchableOpacity
-    style={[
-      styles.tagOption,
-      selected && styles.selectedTagOption,
-    ]}
+    style={[styles.tagOption, selected && styles.selectedTagOption]}
     onPress={onPress}
   >
-    {icon}
-    <Text
-      style={[
-        styles.tagText,
-        selected && styles.selectedTagText,
-      ]}
-    >
+    <Text style={[styles.tagText, selected && styles.selectedTagText]}>
       {label}
     </Text>
   </TouchableOpacity>
@@ -205,6 +212,21 @@ const TagOption = ({ label, icon, selected, onPress }: TagOptionProps) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  input: {
+    backgroundColor: COLORS.white,
+    borderRadius: 5,
+    padding: 5,
+    borderWidth: 0.2,
+    borderColor: COLORS.lightGray,
+  },
+  inputContainer: {},
+  errorText: {
+    color: "red",
+  },
+  label: {
+    ...FONTS.h3,
+    marginBottom: SIZES.xsmall,
   },
   tagContainer: {
     marginBottom: SIZES.medium,
@@ -217,7 +239,6 @@ const styles = StyleSheet.create({
   tagOptions: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginHorizontal: -SIZES.base / 2,
   },
   tagOption: {
     flexDirection: 'row',
@@ -225,28 +246,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.medium,
     paddingVertical: SIZES.base,
     borderWidth: 1,
-    borderColor: COLORS.veryLightGray,
-    borderRadius: SIZES.base,
+    borderColor: COLORS.lightGray,
+    borderRadius: SIZES.large,
     marginRight: SIZES.base,
-    marginBottom: SIZES.base,
   },
   selectedTagOption: {
-    borderColor: COLORS.primary,
-    backgroundColor: COLORS.primaryLight + '20', // 20% opacity
+    borderColor: COLORS.black,
+    backgroundColor: COLORS.black + '20', // 20% opacity
   },
   tagText: {
     ...FONTS.body,
     color: COLORS.textSecondary,
-    marginLeft: SIZES.base,
   },
   selectedTagText: {
-    color: COLORS.primary,
+    color: COLORS.black,
     fontFamily: FONTS.medium,
   },
   requiredNote: {
     ...FONTS.caption,
     color: COLORS.textSecondary,
-    marginBottom: SIZES.large,
+    marginBottom: SIZES.small,
   },
   submitButton: {
     marginBottom: SIZES.xxlarge,

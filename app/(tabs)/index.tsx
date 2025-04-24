@@ -23,11 +23,11 @@ export default function HomeScreen() {
           <Text style={styles.greeting}>
             {firstName ? `Hi, ${firstName}!` : 'Welcome!'}
           </Text>
-          <Text style={styles.subGreeting}>Ready to explore GoodLife?</Text>
+          <Text style={styles.subGreeting}>Ready to explore FirstClub?</Text>
         </View>
         
         <View style={styles.logoContainer}>
-          <Text style={styles.logo}>GoodLife</Text>
+          <Text style={styles.logo}>FirstClub</Text>
         </View>
       </View>
       
@@ -180,8 +180,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   logo: {
-    fontFamily: 'Inter-Bold',
-    fontSize: 18,
+    ...FONTS.h2,
     color: COLORS.primary,
   },
   section: {
@@ -237,7 +236,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   categoryTitle: {
-    ...FONTS.medium,
+    // ...FONTS.medium,
     color: COLORS.white,
     position: 'absolute',
     bottom: SIZES.base,
@@ -267,7 +266,7 @@ const styles = StyleSheet.create({
     padding: SIZES.base,
   },
   productName: {
-    ...FONTS.medium,
+    // ...FONTS.medium,
     color: COLORS.text,
     marginBottom: SIZES.base / 2,
   },
@@ -277,7 +276,7 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.base / 2,
   },
   productPrice: {
-    ...FONTS.medium,
+    // ...FONTS.medium,
     color: COLORS.primary,
   },
   addButton: {
@@ -292,7 +291,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   addButtonText: {
-    ...FONTS.medium,
+    // ...FONTS.medium,
     color: COLORS.white,
     fontSize: 16,
     lineHeight: 24,
@@ -336,7 +335,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   bannerButtonText: {
-    ...FONTS.medium,
+    // ...FONTS.medium,
     color: COLORS.primary,
   },
 });
